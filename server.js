@@ -3,13 +3,19 @@ import express from 'express';
 import dotenv from 'dotenv';
 import fetch from 'node-fetch';
 import bodyParser from 'body-parser';
+import cors from 'cors';
 
 // 환경 변수 로드
 // 환경 변수 로드
 dotenv.config();
-
+const corsOptions = {
+  origin: /^https:\/\/([a-z0-9-]+\.)*medipaysolution\.co\.kr$/,
+  methods: ['POST'],
+  credentials: true,
+};
 const app = express();
 app.use(bodyParser.json());
+app.use(cors(corsOptions));
 
 const PORT = process.env.PORT || 4000;
 
