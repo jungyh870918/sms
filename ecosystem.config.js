@@ -1,7 +1,7 @@
 module.exports = {
   apps: [
     {
-      name: 'my-node-app',
+      name: 'sms',
       script: './server.js',
       env: {
         NODE_ENV: 'production',
