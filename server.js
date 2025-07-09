@@ -9,8 +9,7 @@ import cors from 'cors';
 // 환경 변수 로드
 dotenv.config();
 const corsOptions = {
-  // origin: '*',
-  origin: /^https:\/\/([a-z0-9-]+\.)*medipaysolution\.co\.kr$/,
+  origin: '*',
   methods: ['POST'],
   credentials: true,
 };
