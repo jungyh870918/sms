@@ -5,6 +5,7 @@ import fetch from 'node-fetch';
 import bodyParser from 'body-parser';
 
 // 환경 변수 로드
+// 환경 변수 로드
 dotenv.config();
 
 const app = express();
