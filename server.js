@@ -10,19 +10,20 @@ import cors from 'cors';
 dotenv.config();
 const corsOptions = {
   origin: '*',
-  methods: ['POST'],
+  methods: ['POST', 'GET'],
   credentials: true,
 };
 const app = express();
 app.use(bodyParser.json());
 app.use(cors(corsOptions));
 
-const PORT = process.env.PORT || 4000;
+const PORT = process.env.PORT || 5500;
 
 // ✅ 문자 전송 함수
 async function sendSMS({ phone, message, sender, msg_type = 'SMS', title = '' }) {
   console.log('📨 알리고 API 호출 직전:', phone);
   const res = await fetch('https://apis.aligo.in/send/', {
+
     method: 'POST',
     headers: {
       'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8',
@@ -32,7 +33,7 @@ async function sendSMS({ phone, message, sender, msg_type = 'SMS', title = '' })
       user_id: process.env.ALIGO_USER_ID,
       sender,
       receiver: phone,
-      msg: message,
+      msg: encodeURIComponent(message),   // ✅ 이 부분 추가
       msg_type,
       title,
     }),
@@ -45,6 +46,13 @@ async function sendSMS({ phone, message, sender, msg_type = 'SMS', title = '' })
     error: data.message,
   };
 }
+
+
+// make sample get router
+// ✅ 테스트용 GET 라우터
+app.get('/', (req, res) => {
+  res.send('SMS 전송 서버가 정상적으로 작동 중입니다.');
+});
 
 // ✅ 문자 전송 라우터
 app.post('/sms', async (req, res) => {
@@ -70,7 +78,7 @@ app.post('/sms', async (req, res) => {
       msg_type: 'SMS',
       title: '알림',
     });
-
+    console.log('message:', message);
     if (result.success) {
       return res.json({ success: true, ip: ipData.ip });
     } else {
