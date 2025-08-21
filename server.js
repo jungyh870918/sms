@@ -67,7 +67,7 @@ app.post('/sms', async (req, res) => {
       phone,
       message,
       sender: process.env.ALIGO_SENDER_PHONE,
-      msg_type: 'SMS',
+      msg_type: 'LMS',
       title: '알림',
     });
 
