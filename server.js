@@ -17,7 +17,7 @@ const app = express();
 app.use(bodyParser.json());
 app.use(cors(corsOptions));
 
-const PORT = process.env.PORT || 5500;
+const PORT = process.env.PORT || 4000;
 
 // ✅ 문자 전송 함수
 async function sendSMS({ phone, message, sender, msg_type = 'SMS', title = '' }) {
